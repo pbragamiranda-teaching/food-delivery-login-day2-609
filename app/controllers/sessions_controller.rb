@@ -22,9 +22,6 @@ class SessionsController
       employee
     else
       @sessions_view.wrong_credentials
-      employee = nil
-      employee
-
       login # recursive
     end
   end

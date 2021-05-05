@@ -18,8 +18,15 @@ task :int_customer do
   sh "rspec -t customer || true"
 end
 
+desc "Launch tests for the order namespace only"
+task :int_order do
+  sh "rspec -t _order || true"
+end
+
 task default: [:rubocop, :spec]
 
 task meal: [:rubocop, :int_meal]
 
 task customer: [:rubocop, :int_customer]
+
+task order: [:rubocop, :int_order]

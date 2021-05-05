@@ -22,6 +22,7 @@ class BaseRepository
   end
 
   private
+
   def save_csv
     csv_options = {
       col_sep: ",",
@@ -31,7 +32,7 @@ class BaseRepository
 
     CSV.open(@csv_file_path, "wb", csv_options) do |csv|
       csv << @class.csv_headers
-      @elements.each do |element|  
+      @elements.each do |element|
         csv << element.to_csv
       end
     end

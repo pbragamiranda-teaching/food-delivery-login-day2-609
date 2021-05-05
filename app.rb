@@ -14,18 +14,25 @@ require_relative 'app/models/employee'
 require_relative 'app/repositories/employee_repository'
 require_relative 'app/controllers/sessions_controller'
 
+require_relative "app/repositories/order_repository"
+require_relative "app/controllers/orders_controller"
+
 require_relative 'router'
 
-customers_repo = CustomerRepository.new('data/customers.csv')
-customers_controller = CustomersController.new(customers_repo)
+customer_repo = CustomerRepository.new('data/customers.csv')
+customers_controller = CustomersController.new(customer_repo)
 
-meals_repo = MealRepository.new('data/meals.csv')
-meals_controller = MealsController.new(meals_repo)
+meal_repo = MealRepository.new('data/meals.csv')
+meals_controller = MealsController.new(meal_repo)
 
 employee_repo = EmployeeRepository.new('data/employee.csv')
 sessions_controller = SessionsController.new(employee_repo)
 
-router = Router.new(meals_controller, customers_controller, sessions_controller)
+order_repo = OrderRepository.new('data/orders.csv', meal_repo, customer_repo, employee_repo)
+orders_controller = OrdersController.new(meal_repo, customer_repo, employee_repo, order_repo)
+
+
+router = Router.new(meals_controller, customers_controller, sessions_controller, orders_controller)
 router.run
 
 # meal = meals_repo.find(1)
